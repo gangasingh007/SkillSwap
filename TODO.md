@@ -1,0 +1,1 @@
+Reinsatilize the next js application and install shadcn and tweakcn themse

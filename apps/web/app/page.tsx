@@ -1,10 +1,27 @@
-export default function HomePage() {
+import { ModeToggle } from "@/components/shared/ThemeToggle"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Welcome to SkillSwap Market</h1>
-      <p className="mt-4 text-xl text-gray-600">
-        The Skill-Barter + Micro-Monetization Marketplace
-      </p>
-    </main>
-  );
+    <>
+    <ModeToggle />
+    <Card className="max-w-sm">
+      <CardHeader>
+        <CardTitle>Project Overview</CardTitle>
+        <CardDescription>
+          Track progress and recent activity for your Next.js app.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        Your design system is ready. Start building your next component.
+      </CardContent>
+    </Card>
+    </>
+  )
 }
