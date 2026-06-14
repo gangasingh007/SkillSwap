@@ -9,9 +9,6 @@ import {
 
 export function proxy(request: NextRequest) {
   const { nextUrl } = request
-  
-  // Check if user is authenticated via refreshToken cookie
-  // Note: Backend sets this as httpOnly, but middleware can still check for its existence
   const isAuthenticated = request.cookies.has("refreshToken")
 
   const isApiAuthRoute = nextUrl.pathname.startsWith("/api/auth")

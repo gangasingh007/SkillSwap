@@ -189,10 +189,21 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
     letter-spacing: var(--tracking-normal);
   }
-  html {
-    @apply font-sans;
+}
+
+@layer utilities {
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .animate-ticker {
+    animation: ticker 38s linear infinite;
+  }
+  .highlight-number {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
   }
 }

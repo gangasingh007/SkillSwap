@@ -1,27 +1,32 @@
-import { ModeToggle } from "@/components/shared/ThemeToggle"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+"use client"
 
-export default function Home() {
+import { LandingHeader } from "@/components/landing/LandingHeader"
+import { Hero } from "@/components/landing/Hero"
+import { Ticker } from "@/components/landing/Ticker"
+import { StatsSection } from "@/components/landing/StatsSection"
+import { HowItWorks } from "@/components/landing/HowItWorks"
+import { LiveActivity } from "@/components/landing/LiveActivity"
+import { ProcessStrip } from "@/components/landing/ProcessStrip"
+import { TestimonialsSection } from "@/components/landing/TestimonialsSection"
+import { CTASection } from "@/components/landing/CTASection"
+import { LandingFooter } from "@/components/landing/LandingFooter"
+
+export default function LandingPage() {
   return (
-    <>
-    <ModeToggle />
-    <Card className="max-w-sm">
-      <CardHeader>
-        <CardTitle>Project Overview</CardTitle>
-        <CardDescription>
-          Track progress and recent activity for your Next.js app.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        Your design system is ready. Start building your next component.
-      </CardContent>
-    </Card>
-    </>
+    <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20">
+      <LandingHeader />
+      <main className="flex-1 pt-16">
+        <Hero />
+        <Ticker />
+        <StatsSection />
+        <HowItWorks />
+        <LiveActivity />
+        <ProcessStrip />
+        <TestimonialsSection />
+        <CTASection />
+      </main>
+
+      <LandingFooter />
+    </div>
   )
 }

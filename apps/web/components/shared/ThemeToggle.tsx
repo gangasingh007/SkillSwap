@@ -13,10 +13,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-/**
- * ThemeToggle component provides a polished UI for switching between
- * light, dark, and system color themes with smooth Framer Motion animations.
- */
 export function ModeToggle() {
   const { setTheme, theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
@@ -53,7 +49,7 @@ export function ModeToggle() {
                 transition={{ duration: 0.2, ease: "backOut" }}
                 className="flex items-center justify-center"
               >
-                <Moon className="h-[1.2rem] w-[1.2rem] text-primary" />
+                <Moon className="h-[1.2rem] w-[1.2rem] " />
               </motion.div>
             ) : (
               <motion.div
@@ -64,7 +60,7 @@ export function ModeToggle() {
                 transition={{ duration: 0.2, ease: "backOut" }}
                 className="flex items-center justify-center"
               >
-                <Sun className="h-[1.2rem] w-[1.2rem] text-primary" />
+                <Sun className="h-[1.2rem] w-[1.2rem] " />
               </motion.div>
             )}
           </AnimatePresence>
