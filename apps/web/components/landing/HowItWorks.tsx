@@ -53,14 +53,14 @@ export function HowItWorks() {
           </Card>
 
           {/* Rail 2: Skill Credits (featured) */}
-          <Card className="group relative rounded-2xl border-foreground/10 bg-foreground text-background overflow-hidden">
+          <Card className="group relative rounded-2xl border-foreground/10 bg-foreground/80 text-background overflow-hidden">
             <div className="pointer-events-none absolute inset-0 opacity-5">
               <Coins className="absolute -bottom-8 -right-8 h-48 w-48 rotate-12 text-background" />
             </div>
             <CardContent className="relative flex h-full flex-col p-8">
               <div className="mb-8 flex items-start justify-between">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-background/20 bg-background/10">
-                  <Coins className="h-5 w-5 text-amber-400" />
+                  <Coins className="h-5 w-5 text-primary" />
                 </div>
                 <span className="highlight-number font-mono text-xs font-bold text-background/30">
                   RAIL 02
@@ -72,7 +72,7 @@ export function HowItWorks() {
                 any expert in the market. No cash needed — your expertise is the bank.
               </p>
               <div className="mt-8 border-t border-background/10 pt-6">
-                <div className="flex items-center gap-2 text-xs font-bold text-amber-400">
+                <div className="flex items-center gap-2 text-xs font-bold text-primary">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   3 free Credits on signup. Zero expiry.
                 </div>

@@ -25,8 +25,8 @@ export function ProcessStrip() {
     <section className="py-24">
       <div className="container mx-auto px-4">
         <div className="mb-14 flex items-center gap-3">
-          <div className="h-px w-8 bg-amber-500" />
-          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
+          <div className="h-px w-8 bg-primary" />
+          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-primary dark:text-primary/80">
             Getting Started
           </span>
         </div>

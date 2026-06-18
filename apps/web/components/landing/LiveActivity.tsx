@@ -38,8 +38,8 @@ export function LiveActivity() {
           <div>
             <div className="mb-10">
               <div className="mb-4 flex items-center gap-3">
-                <div className="h-px w-8 bg-amber-500" />
-                <span className="text-[11px] font-black uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
+                <div className="h-px w-8 bg-primary" />
+                <span className="text-[11px] font-black uppercase tracking-[0.25em] text-primary dark:text-primary/80">
                   The Marketplace
                 </span>
               </div>
@@ -57,9 +57,9 @@ export function LiveActivity() {
                   transition={{ duration: 0.2 }}
                 >
                   <Link href="/explore">
-                    <div className="group flex items-center gap-4 rounded-xl border border-border/40 bg-background px-5 py-4 transition-all hover:border-amber-500/30 hover:bg-amber-500/[0.02]">
-                      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-border/40 bg-muted/40 transition-colors group-hover:border-amber-500/30 group-hover:bg-amber-500/10">
-                        <cat.icon className="h-4.5 w-4.5 text-muted-foreground transition-colors group-hover:text-amber-600 dark:group-hover:text-amber-400" />
+                    <div className="group flex items-center gap-4 rounded-xl border border-border/40 bg-background px-5 py-4 transition-all hover:border-primary/30 hover:bg-primary/[0.02]">
+                      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-border/40 bg-muted/40 transition-colors group-hover:border-primary/30 group-hover:bg-primary/10">
+                        <cat.icon className="h-4.5 w-4.5 text-muted-foreground transition-colors group-hover:text-primary dark:group-hover:text-primary/80" />
                       </div>
                       <div>
                         <p className="text-sm font-bold">{cat.name}</p>

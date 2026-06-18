@@ -17,7 +17,7 @@ export function LiveFeed() {
           className="flex items-center justify-between gap-4 rounded-2xl border border-border/30 bg-muted/20 px-5 py-3.5 backdrop-blur-sm"
         >
           <div className="flex items-center gap-3 min-w-0">
-            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-[10px] font-black text-amber-600 dark:text-amber-400">
+            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-black text-primary dark:text-primary/80">
               {swap.from.charAt(0)}
             </div>
             <p className="truncate text-sm font-medium text-muted-foreground">
@@ -28,7 +28,7 @@ export function LiveFeed() {
             </p>
           </div>
           <div className="flex flex-shrink-0 items-center gap-3">
-            <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400">
+            <span className="font-mono text-xs font-bold text-primary dark:text-primary/80">
               +{swap.credits} CR
             </span>
             <span className="text-[10px] text-muted-foreground/50">{swap.time}</span>

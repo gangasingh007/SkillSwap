@@ -11,8 +11,8 @@ export function TestimonialsSection() {
     <section className="border-t border-border/30 bg-muted/10 py-28">
       <div className="container mx-auto px-4">
         <div className="mb-14 flex items-center gap-3">
-          <div className="h-px w-8 bg-amber-500" />
-          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
+          <div className="h-px w-8 bg-primary" />
+          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-primary dark:text-primary/80 ">
             On the Record
           </span>
         </div>

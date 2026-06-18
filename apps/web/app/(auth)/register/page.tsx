@@ -1,9 +1,10 @@
+
 "use client"
 
 import * as React from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Zap, CheckCircle2, ShieldCheck, Coins, Sparkles } from "lucide-react"
+import { Zap, ShieldCheck, Coins, Sparkles } from "lucide-react"
 
 import { RegisterForm } from "@/components/auth/register-form"
 
@@ -19,13 +20,7 @@ export default function RegisterPage() {
         </div>
 
         <Link href="/" className="flex items-center gap-2.5 relative z-10">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-            <Zap className="h-5 w-5 fill-current" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-foreground">SkillSwap</span>
-          <span className="ml-1 rounded-sm border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-primary">
-            MARKET
-          </span>
+          <span className="text-xl font-bold tracking-tight text-foreground">Skill<span className="text-primary">Swap </span></span>
         </Link>
 
         <div className="max-w-md relative z-10">

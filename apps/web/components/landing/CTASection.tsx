@@ -9,7 +9,7 @@ export function CTASection() {
   return (
     <section className="border-t border-border/30 py-28">
       <div className="container mx-auto px-4">
-        <div className="relative overflow-hidden rounded-3xl bg-foreground px-8 py-24 text-background md:px-20">
+        <div className="relative overflow-hidden rounded-3xl bg-foreground/80 px-8 py-24 text-background md:px-20">
           {/* Large ambient type */}
           <div
             aria-hidden
@@ -28,7 +28,7 @@ export function CTASection() {
                 <br />
                 IS WAITING
                 <br />
-                <span className="text-amber-400">TO BE SPENT.</span>
+                <span className="text-primary">TO BE SPENT.</span>
               </h2>
               <p className="mt-6 max-w-md text-base font-medium text-background/60">
                 Join 12,000+ professionals who've turned their skills into a self-sustaining
@@ -39,7 +39,7 @@ export function CTASection() {
               <Link href="/register">
                 <Button
                   size="lg"
-                  className="h-14 w-full gap-2 rounded-xl bg-amber-500 px-10 font-bold text-background hover:bg-amber-400 md:w-auto group"
+                  className="h-14 w-full gap-2 rounded-xl bg-primary px-10 font-bold text-background hover:bg-primary/80 md:w-auto group"
                 >
                   Create Account
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -49,7 +49,7 @@ export function CTASection() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-14 w-full gap-2 rounded-xl border-background/20 bg-transparent px-10 font-bold text-background hover:bg-background/10 md:w-auto"
+                  className="h-14 w-full gap-2 rounded-xl border-background/20 bg-transparent px-10 font-bold text-background hover:bg-background/30 md:w-auto"
                 >
                   Browse First
                 </Button>

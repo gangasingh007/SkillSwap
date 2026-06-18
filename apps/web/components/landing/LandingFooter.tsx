@@ -11,10 +11,7 @@ export function LandingFooter() {
         <div className="mb-16 grid gap-12 md:grid-cols-5">
           <div className="md:col-span-2 space-y-5">
             <div className="flex items-center gap-2 text-foreground">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground text-background">
-                <Zap className="h-4 w-4 fill-current" />
-              </div>
-              <span className="text-lg font-black tracking-tighter">SkillSwap Market</span>
+              <span className="text-lg font-black tracking-tighter">Skill<span className="text-primary">Swap</span></span>
             </div>
             <p className="max-w-xs text-sm font-medium leading-relaxed text-muted-foreground">
               The global clearing infrastructure for professional expertise. Built for the modern
