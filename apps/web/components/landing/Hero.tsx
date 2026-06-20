@@ -14,10 +14,9 @@ import {
   ArrowUpRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { TICKER_ITEMS } from "./constants"
+import RotatingText from "./RotatingText"
 
-/* ─────────────────────── Animated Counter ─────────────────────── */
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = React.useState(0)
@@ -53,54 +52,64 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   )
 }
 
-/* ─────────────────── Floating Skill Tag ──────────────────────── */
-
-function FloatingTag({
-  label,
-  index,
-  total,
-}: {
-  label: string
-  index: number
-  total: number
-}) {
+function OrbitingTags({ tags }: { tags: string[] }) {
   const prefersReduced = useReducedMotion()
-
-  // Distribute tags in a natural arc on the right side
-  const positions = React.useMemo(() => {
-    const angle = (index / total) * Math.PI * 0.7 + Math.PI * 0.15
-    return {
-      x: 55 + Math.cos(angle) * 38,
-      y: 15 + Math.sin(angle) * 35,
-    }
-  }, [index, total])
+  const radius = 44 // percentage of container half-size
 
   return (
-    <motion.div
-      className="absolute hidden xl:block"
-      style={{ left: `${positions.x}%`, top: `${positions.y}%` }}
-      initial={{ opacity: 0, scale: 0.6 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        y: prefersReduced ? 0 : [0, -8, 0],
-      }}
-      transition={{
-        opacity: { duration: 0.5, delay: 0.8 + index * 0.12 },
-        scale: { duration: 0.5, delay: 0.8 + index * 0.12, ease: [0.22, 1, 0.36, 1] },
-        y: {
-          duration: 3 + index * 0.4,
+    <div className="pointer-events-none absolute inset-0 hidden xl:block" aria-hidden="true">
+      <motion.div
+        className="absolute inset-0"
+        animate={prefersReduced ? {} : { rotate: 360 }}
+        transition={{
+          duration: 80,
           repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay: index * 0.3,
-        },
-      }}
-    >
-      <div className="cursor-default rounded-xl border border-border/60 bg-card/80 px-3.5 py-2 shadow-md backdrop-blur-md transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
-        <span className="text-xs font-semibold text-foreground/80">{label}</span>
-      </div>
-    </motion.div>
+          ease: "linear",
+        }}
+      >
+        {tags.map((label, i) => {
+          const angle = (i / tags.length) * Math.PI * 2
+          // Position relative to center of the section (50%, 45%)
+          const x = 50 + Math.cos(angle) * radius
+          const y = 45 + Math.sin(angle) * (radius * 0.7)
+
+          return (
+            <motion.div
+              key={label}
+              className="absolute"
+              style={{
+                left: `${x}%`,
+                top: `${y}%`,
+                transform: "translate(-50%, -50%)",
+              }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 1.0 + i * 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              {/* Counter-rotate so the text stays upright */}
+              <motion.div
+                animate={prefersReduced ? {} : { rotate: -360 }}
+                transition={{
+                  duration: 80,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
+                <div className="pointer-events-auto cursor-default rounded-xl border border-border/60 bg-card/80 px-3.5 py-2 shadow-md backdrop-blur-md transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
+                  <span className="text-xs font-semibold text-foreground/80 whitespace-nowrap">
+                    {label}
+                  </span>
+                </div>
+              </motion.div>
+            </motion.div>
+          )
+        })}
+      </motion.div>
+    </div>
   )
 }
 
@@ -125,7 +134,6 @@ const stagger = {
   },
 }
 
-/* ═══════════════════════ HERO ════════════════════════════════════ */
 
 export function Hero() {
   const prefersReduced = useReducedMotion()
@@ -144,18 +152,13 @@ export function Hero() {
             backgroundSize: "72px 72px",
           }}
         />
-        {/* Primary glow — top right */}
         <div className="absolute -top-32 right-0 h-[520px] w-[520px] rounded-full bg-primary/8 blur-[120px] dark:bg-primary/10" />
-        {/* Secondary glow — bottom left */}
         <div className="absolute -bottom-24 -left-24 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[100px] dark:bg-primary/8" />
-        {/* Accent glow — center */}
         <div className="absolute top-1/2 left-1/3 h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-chart-2/5 blur-[100px] dark:bg-chart-2/8" />
       </div>
 
-      {/* ── Floating Skill Tags (XL screens) ── */}
-      {floatingTags.map((tag, i) => (
-        <FloatingTag key={tag} label={tag} index={i} total={floatingTags.length} />
-      ))}
+      {/* ── Orbiting Skill Tags (XL screens) ── */}
+      <OrbitingTags tags={floatingTags} />
 
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div
@@ -164,17 +167,7 @@ export function Hero() {
           animate="animate"
           className="relative z-10"
         >
-          {/* ── Eyebrow Badge ── */}
-          <motion.div variants={stagger.item} transition={{ duration: 0.5 }}>
-            <Badge
-              variant="outline"
-              className="mb-8 h-auto cursor-default gap-2 rounded-full border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:border-primary/40 hover:bg-primary/10 dark:border-primary/30 dark:bg-primary/10 dark:text-primary"
-            >
-              <Zap className="h-3 w-3" />
-              Professional Skill Exchange
-            </Badge>
-          </motion.div>
-
+  
           {/* ── Headline ── */}
           <motion.h1
             variants={stagger.item}
@@ -183,17 +176,22 @@ export function Hero() {
           >
             YOUR SKILLS
             <br />
-            ARE{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 bg-gradient-to-r from-primary to-chart-5 bg-clip-text text-transparent dark:from-primary dark:to-primary">
-                CURRENCY.
-              </span>
-              {/* Animated underline */}
-              <motion.span
-                className="absolute inset-x-0 -bottom-1 h-[3px] origin-left rounded-full bg-gradient-to-r from-primary to-chart-5 dark:from-primary dark:to-primary/60"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            YOUR {" "}
+            <span className="inline-block relative">
+              <RotatingText
+                texts={['Currency', 'Commodities', 'Capital', 'Power', 'Influence']}
+                mainClassName="px-2 sm:px-2 md:px-3 bg-primary/50 text-background overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+                splitBy="characters"
+                auto
+                loop
               />
             </span>
           </motion.h1>

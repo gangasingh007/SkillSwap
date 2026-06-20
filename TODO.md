@@ -1,1 +1,1 @@
-Reinsatilize the next js application and install shadcn and tweakcn themse
+Modularize the code for the @hero.tsx file and all the other landing components
