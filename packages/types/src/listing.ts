@@ -4,6 +4,7 @@ export interface Listing {
   title: string;
   description: string;
   category: 'Development' | 'Design' | 'Marketing' | 'Writing' | 'Business' | 'Education' | 'Other';
+  skillTags: string[];
   cashPrice: number;
   creditPrice: number;
   deliveryFormat: 'async' | 'live_call' | 'document';
