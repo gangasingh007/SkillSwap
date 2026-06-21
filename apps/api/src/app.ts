@@ -3,6 +3,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
+import listingRoutes from './routes/listings';
+import { globalLimiter } from './middleware/rateLimit';
 
 const app = express();
 
@@ -14,11 +16,15 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(globalLimiter);
+
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
+app.use('/listings', listingRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 export default app;
+
