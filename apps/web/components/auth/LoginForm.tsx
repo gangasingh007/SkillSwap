@@ -21,20 +21,12 @@ import {
 import { loginUser } from "@/lib/auth"
 import { OAuthButtons } from "@/components/auth/OAuthButtons"
 
-// ---------------------------------------------------------------------------
-// Schema
-// ---------------------------------------------------------------------------
-
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(1, "Password is required"),
 })
 
 type LoginValues = z.infer<typeof loginSchema>
-
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
 
 export function LoginForm() {
   const router = useRouter()
@@ -77,9 +69,7 @@ export function LoginForm() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="w-full max-w-[420px]"
     >
-      {/* ----------------------------------------------------------------- */}
-      {/* Header                                                            */}
-      {/* ----------------------------------------------------------------- */}
+
       <div className="flex items-center gap-3 mb-4">
         <div className="h-px w-8 bg-primary" />
         <span className="text-[11px] font-black uppercase tracking-[0.25em] text-primary">
@@ -93,10 +83,6 @@ export function LoginForm() {
       <p className="text-muted-foreground font-medium mb-8">
         Access your SkillSwap dashboard and manage your trades.
       </p>
-
-      {/* ----------------------------------------------------------------- */}
-      {/* Error Alert                                                       */}
-      {/* ----------------------------------------------------------------- */}
       <AnimatePresence>
         {error && (
           <motion.div
@@ -116,10 +102,6 @@ export function LoginForm() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* ----------------------------------------------------------------- */}
-      {/* Form                                                              */}
-      {/* ----------------------------------------------------------------- */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <FieldGroup>
           {/* Email */}
@@ -169,7 +151,7 @@ export function LoginForm() {
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest gap-2 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:bg-primary/90 cursor-pointer transition-all duration-200"
+          className="w-full h-12 rounded-xl bg-primary text-background font-bold uppercase tracking-widest gap-2 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:bg-primary/90 cursor-pointer transition-all duration-200"
         >
           {isLoading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -181,14 +163,8 @@ export function LoginForm() {
           )}
         </Button>
 
-        {/* ----------------------------------------------------------------- */}
-        {/* OAuth                                                             */}
-        {/* ----------------------------------------------------------------- */}
         <OAuthButtons mode="login" />
 
-        {/* ----------------------------------------------------------------- */}
-        {/* Footer                                                            */}
-        {/* ----------------------------------------------------------------- */}
         <p className="text-center text-sm font-medium text-muted-foreground pt-2">
           Don&apos;t have an account?{" "}
           <Link

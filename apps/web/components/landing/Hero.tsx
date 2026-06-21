@@ -1,6 +1,4 @@
 "use client"
-
-import * as React from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import {
@@ -10,119 +8,20 @@ import {
   ShieldCheck,
   BarChart3,
   Search,
-  Zap,
   ArrowUpRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { TICKER_ITEMS } from "./constants"
 import RotatingText from "./RotatingText"
+import OrbitingTags from "./OrbitingOrbs"
+import AnimatedCounter from "./AnimatedCounter"
 
-
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = React.useState(0)
-  const prefersReduced = useReducedMotion()
-
-  React.useEffect(() => {
-    if (prefersReduced) {
-      setCount(target)
-      return
-    }
-    let frame: number
-    const duration = 2000
-    const start = performance.now()
-
-    function tick(now: number) {
-      const elapsed = now - start
-      const progress = Math.min(elapsed / duration, 1)
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.round(eased * target))
-      if (progress < 1) frame = requestAnimationFrame(tick)
-    }
-
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [target, prefersReduced])
-
-  return (
-    <span className="highlight-number">
-      {count.toLocaleString()}
-      {suffix}
-    </span>
-  )
-}
-
-function OrbitingTags({ tags }: { tags: string[] }) {
-  const prefersReduced = useReducedMotion()
-  const radius = 44 // percentage of container half-size
-
-  return (
-    <div className="pointer-events-none absolute inset-0 hidden xl:block" aria-hidden="true">
-      <motion.div
-        className="absolute inset-0"
-        animate={prefersReduced ? {} : { rotate: 360 }}
-        transition={{
-          duration: 80,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      >
-        {tags.map((label, i) => {
-          const angle = (i / tags.length) * Math.PI * 2
-          // Position relative to center of the section (50%, 45%)
-          const x = 50 + Math.cos(angle) * radius
-          const y = 45 + Math.sin(angle) * (radius * 0.7)
-
-          return (
-            <motion.div
-              key={label}
-              className="absolute"
-              style={{
-                left: `${x}%`,
-                top: `${y}%`,
-                transform: "translate(-50%, -50%)",
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.6,
-                delay: 1.0 + i * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              {/* Counter-rotate so the text stays upright */}
-              <motion.div
-                animate={prefersReduced ? {} : { rotate: -360 }}
-                transition={{
-                  duration: 80,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <div className="pointer-events-auto cursor-default rounded-xl border border-border/60 bg-card/80 px-3.5 py-2 shadow-md backdrop-blur-md transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
-                  <span className="text-xs font-semibold text-foreground/80 whitespace-nowrap">
-                    {label}
-                  </span>
-                </div>
-              </motion.div>
-            </motion.div>
-          )
-        })}
-      </motion.div>
-    </div>
-  )
-}
-
-/* ─────────────────── Trust Badge Item ─────────────────────────── */
-
-const TRUST_ITEMS = [
+export const TRUST_ITEMS = [
   { icon: ShieldCheck, label: "Stripe-Secured Escrow" },
   { icon: Globe, label: "140+ Countries" },
   { icon: Sparkles, label: "AI-Matched Swaps" },
   { icon: BarChart3, label: "Real-Time Clearing" },
 ] as const
-
-/* ─────────────────── Stagger Configs ─────────────────────────── */
 
 const stagger = {
   container: {
@@ -136,11 +35,10 @@ const stagger = {
 
 
 export function Hero() {
-  const prefersReduced = useReducedMotion()
   const floatingTags = TICKER_ITEMS.slice(0, 7)
 
   return (
-    <section className="relative min-h-[92vh] overflow-hidden pt-28 pb-12 md:pt-32 lg:pt-36">
+    <section className="relative min-h-[92vh] overflow-hidden pt-28 pb-12 md:pt-32 lg:pt-26">
       {/* ── Background Layer ── */}
       <div className="pointer-events-none absolute inset-0 -z-20">
         {/* Subtle grid pattern */}
@@ -156,8 +54,6 @@ export function Hero() {
         <div className="absolute -bottom-24 -left-24 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[100px] dark:bg-primary/8" />
         <div className="absolute top-1/2 left-1/3 h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-chart-2/5 blur-[100px] dark:bg-chart-2/8" />
       </div>
-
-      {/* ── Orbiting Skill Tags (XL screens) ── */}
       <OrbitingTags tags={floatingTags} />
 
       <div className="container mx-auto px-4 sm:px-6">
@@ -206,8 +102,7 @@ export function Hero() {
               <p className="text-lg font-medium leading-relaxed text-muted-foreground md:text-xl">
                 The dual-currency marketplace where expertise is both product and
                 payment. Hire in USD or earn{" "}
-                <span className="inline-flex items-baseline gap-1 font-mono font-bold text-foreground">
-                  <Sparkles className="inline h-3.5 w-3.5 text-primary" />
+                <span className="inline-flex items-baseline gap-1 font-mono font-bold text-primary">
                   Skill Credits
                 </span>{" "}
                 by delivering your own work.
@@ -218,7 +113,7 @@ export function Hero() {
                 <Link href="/register">
                   <Button
                     size="lg"
-                    className="group h-13 cursor-pointer gap-2 rounded-xl bg-primary px-8 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-200 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
+                    className="group h-13 cursor-pointer gap-2 rounded-xl bg-primary px-8 font-bold text-background shadow-lg shadow-primary/20 transition-all duration-200 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
                   >
                     Start Swapping
                     <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />

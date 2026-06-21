@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight, Loader2, Sparkles, AlertCircle } from "lucide-react"
+import { ArrowRight, Loader2, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
@@ -72,7 +72,6 @@ export function RegisterForm() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="w-full max-w-[420px]"
     >
-      {/* ── Eyebrow ─────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-3 mb-6">
         <div className="h-px w-8 bg-primary" />
         <span className="text-[11px] font-black uppercase tracking-[0.25em] text-primary">
@@ -80,15 +79,13 @@ export function RegisterForm() {
         </span>
       </div>
 
-      {/* ── Title & subtitle ────────────────────────────────────────────── */}
       <h1 className="text-4xl font-black tracking-tighter mb-2 text-foreground">
         CREATE ACCOUNT
       </h1>
       <p className="text-muted-foreground font-medium mb-2">
         Start bartering your expertise and earning Skill Credits today.
       </p>
-      
-      {/* ── Error alert (animated) ──────────────────────────────────────── */}
+
       <AnimatePresence mode="wait">
         {error && (
           <motion.div
@@ -107,7 +104,6 @@ export function RegisterForm() {
         )}
       </AnimatePresence>
 
-      {/* ── Form ────────────────────────────────────────────────────────── */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <FieldGroup>
           {/* Full Name */}
@@ -126,7 +122,6 @@ export function RegisterForm() {
             </FieldContent>
           </Field>
 
-          {/* Email */}
           <Field>
             <FieldLabel htmlFor="email">Email Address</FieldLabel>
             <FieldContent>
@@ -142,7 +137,6 @@ export function RegisterForm() {
             </FieldContent>
           </Field>
 
-          {/* Password */}
           <Field>
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <FieldContent>
@@ -162,7 +156,6 @@ export function RegisterForm() {
           </Field>
         </FieldGroup>
 
-        {/* ── Terms agreement ─────────────────────────────────────────── */}
         <p className="text-xs text-muted-foreground leading-relaxed">
           By creating an account, you agree to our{" "}
           <Link
@@ -181,10 +174,9 @@ export function RegisterForm() {
           .
         </p>
 
-        {/* ── Submit button ───────────────────────────────────────────── */}
         <Button
           type="submit"
-          className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest gap-2 cursor-pointer shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:bg-primary/90 transition-all duration-200"
+          className="w-full h-12 rounded-xl bg-primary text-background font-bold uppercase tracking-widest gap-2 cursor-pointer shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:bg-primary/90 transition-all duration-200"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -197,10 +189,8 @@ export function RegisterForm() {
           )}
         </Button>
 
-        {/* ── OAuth ───────────────────────────────────────────────────── */}
         <OAuthButtons mode="register" />
 
-        {/* ── Footer link ─────────────────────────────────────────────── */}
         <p className="text-center text-sm font-medium text-muted-foreground mt-6">
           Already have an account?{" "}
           <Link
