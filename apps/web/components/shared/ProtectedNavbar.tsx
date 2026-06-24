@@ -25,7 +25,7 @@ export function ProtectedNavbar() {
   const { user } = useAuthStore()
 
   const navItems = [
-    { name: "Explore", href: "/listings" },
+    { name: "Listings", href: "/listings" },
     { name: "Dashboard", href: "/dashboard" },
     { name: "Orders", href: "/orders" },
     { name: "Wallet", href: "/wallet" },

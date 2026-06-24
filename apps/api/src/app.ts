@@ -18,9 +18,12 @@ app.use(cors({
 
 app.use(globalLimiter);
 
+import exploreRoutes from './routes/explore';
+
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/listings', listingRoutes);
+app.use('/explore', exploreRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
