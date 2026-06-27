@@ -40,6 +40,7 @@ export const getListings = async (req: AuthRequest, res: Response) => {
       minPrice,
       maxPrice,
       visibility,
+      userId,
       page = '1',
       limit = '12',
       sortBy = 'createdAt',
@@ -51,6 +52,7 @@ export const getListings = async (req: AuthRequest, res: Response) => {
       minPrice: minPrice ? Number(minPrice) : undefined,
       maxPrice: maxPrice ? Number(maxPrice) : undefined,
       visibility: visibility as string | undefined,
+      userId: userId as string | undefined,
     };
 
     const pagination = {

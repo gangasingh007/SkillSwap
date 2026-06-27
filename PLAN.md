@@ -18,22 +18,25 @@ SkillSwap Market is a dual-currency eCommerce platform where professional expert
 ```
 skillswap-market/
 ├── apps/
-│   ├── web/                        # Next.js 14 frontend (App Router)
-│   │   ├── app/
-│   │   │   ├── (auth)/
-│   │   │   │   ├── login/
-│   │   │   │   └── register/
-│   │   │   ├── (dashboard)/
-│   │   │   │   ├── dashboard/
+│   ├── web/                        # Next.js 14 frontend (Pages Router)
+│   │   ├── pages/
+│   │   │   ├── auth/
+│   │   │   │   ├── login.tsx
+│   │   │   │   └── register.tsx
+│   │   │   ├── dashboard/
+│   │   │   │   ├── index.tsx
 │   │   │   │   ├── orders/
-│   │   │   │   └── wallet/
+│   │   │   │   │   ├── index.tsx
+│   │   │   │   │   └── [id].tsx
+│   │   │   │   └── wallet.tsx
 │   │   │   ├── listings/
-│   │   │   │   ├── [id]/
-│   │   │   │   └── new/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── [id].tsx
+│   │   │   │   └── new.tsx
 │   │   │   ├── profile/
-│   │   │   │   └── [userId]/
-│   │   │   ├── explore/
-│   │   │   ├── looking-for/
+│   │   │   │   └── [userId].tsx
+│   │   │   ├── explore.tsx
+│   │   │   ├── looking-for.tsx
 │   │   │   └── admin/
 │   │   ├── components/
 │   │   │   ├── ui/                 # shadcn/ui primitives
@@ -105,7 +108,7 @@ skillswap-market/
 ### Frontend
 | Technology | Purpose |
 |---|---|
-| Next.js 14 (App Router) | SSR/SSG for SEO on public profiles and listings |
+| Next.js 14 (Pages Router) | SSR/SSG for SEO on public profiles and listings |
 | TypeScript | End-to-end type safety |
 | Tailwind CSS | Utility-first styling |
 | shadcn/ui | Accessible component primitives |

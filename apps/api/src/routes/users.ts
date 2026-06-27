@@ -5,7 +5,7 @@ import { auth } from '../middleware/auth';
 const router = Router();
 
 router.get('/me', auth, getMe);
-router.patch('/me', auth, updateMe);
+router.put('/me', auth, updateMe);
 router.get('/:id', getUserById);
 
 export default router;

@@ -21,6 +21,7 @@ import { SwapBadge } from "@/components/profile/SwapBadge"
 import { VouchButton } from "@/components/profile/VouchButton"
 import { VerifiedSkillTag } from "@/components/profile/VerifiedSkillTag"
 import { ListingGrid } from "@/components/listings/ListingGrid"
+import { EditProfileModal } from "@/components/profile/EditProfileModal"
 
 export default function ProfilePage() {
   const params = useParams()
@@ -33,6 +34,8 @@ export default function ProfilePage() {
   const [isFollowing, setIsFollowing] = React.useState(false)
 
   React.useEffect(() => {
+    if (!userId) return;
+
     const loadData = async () => {
       setIsLoading(true)
       try {
@@ -41,7 +44,8 @@ export default function ProfilePage() {
           fetchUserListings(userId).catch(() => ({ listings: [] }))
         ])
         if (profileData) {
-          setProfile(profileData.user)
+          // API returns user object directly, not wrapped in { user }
+          setProfile(profileData)
           setIsFollowing(profileData.isFollowing || false)
         }
         if (listingsData && listingsData.listings) {
@@ -122,7 +126,7 @@ export default function ProfilePage() {
                 <Avatar className="h-28 w-28 border-4 border-background shadow-lg">
                   <AvatarImage src={profile.avatarUrl} alt={profile.name} />
                   <AvatarFallback className="text-3xl bg-muted text-muted-foreground font-bold">
-                    {profile.name.charAt(0).toUpperCase()}
+                    {profile.name?.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 
@@ -169,9 +173,10 @@ export default function ProfilePage() {
                       <VouchButton userId={userId} userName={profile.name} />
                     </>
                   ) : (
-                    <Button variant="outline" className="rounded-xl cursor-pointer w-full md:w-auto">
-                      Edit Profile
-                    </Button>
+                    <EditProfileModal 
+                      profile={profile} 
+                      onProfileUpdated={(updated) => setProfile({ ...profile, ...updated })} 
+                    />
                   )}
                 </div>
               </div>

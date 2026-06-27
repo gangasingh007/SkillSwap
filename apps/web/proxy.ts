@@ -1,55 +1,48 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
-import { 
-  publicRoutes, 
-  authRoutes, 
-  protectedRoutes, 
-  DEFAULT_LOGIN_REDIRECT 
-} from "./lib/routes"
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+// Define the route segments that correspond to the (dashboard) route group
+const protectedPaths = [
+  '/admin',
+  '/dashboard',
+  '/listings',
+  '/orders',
+  '/wallet'
+]
 
 export function proxy(request: NextRequest) {
-  const { nextUrl } = request
-  const isAuthenticated = request.cookies.has("refreshToken")
-
-  const isApiAuthRoute = nextUrl.pathname.startsWith("/api/auth")
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+  const { pathname } = request.nextUrl
   
-  // Check if route is protected (starts with any of the protected prefixes)
-  const isProtectedRoute = protectedRoutes.some(route => 
-    nextUrl.pathname.startsWith(route)
+  // Check if the current path starts with any of the protected paths
+  const isProtectedPath = protectedPaths.some(path => 
+    pathname === path || pathname.startsWith(`${path}/`)
   )
-
-  // 1. If it's an API auth route, don't interfere
-  if (isApiAuthRoute) {
-    return NextResponse.next()
-  }
-
-  // 2. If it's an Auth route (login/register)
-  if (isAuthRoute) {
-    if (isAuthenticated) {
-      // Redirect to dashboard if already logged in
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+  
+  if (isProtectedPath) {
+    // Check if the user has a refreshToken cookie
+    const refreshToken = request.cookies.get('refreshToken')
+    
+    if (!refreshToken) {
+      // Redirect unauthenticated users to the login page
+      const loginUrl = new URL('/login', request.url)
+      // Optionally preserve the URL they were trying to access
+      loginUrl.searchParams.set('callbackUrl', pathname)
+      return NextResponse.redirect(loginUrl)
     }
-    return NextResponse.next()
   }
-
-  // 3. If it's a Protected route
-  if (isProtectedRoute && !isAuthenticated) {
-    // Redirect to landing or login if not authenticated
-    // User requested "get to the landing page if they are not authenticated"
-    return NextResponse.redirect(new URL("/", nextUrl))
-  }
-
-  // 4. Special case: If authenticated and trying to access landing page
-  if (nextUrl.pathname === "/" && isAuthenticated) {
-    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-  }
-
+  
   return NextResponse.next()
 }
 
-// Optionally, specify which paths should be processed by the middleware
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+  ],
 }

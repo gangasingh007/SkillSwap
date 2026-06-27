@@ -32,7 +32,7 @@ Agents communicate via shared types in `/packages/types/src/`. No agent may brea
 ├── .gitignore
 ├── .env.example                  # all env vars with empty values
 ├── docker-compose.dev.yml        # local MongoDB + PostgreSQL + Redis
-├── apps/web/                     # empty Next.js 14 App Router project
+├── apps/web/                     # empty Next.js 14 Pages Router project
 ├── apps/api/                     # empty Express + TypeScript project
 └── packages/types/               # empty shared types package
 ```
@@ -41,7 +41,7 @@ Agents communicate via shared types in `/packages/types/src/`. No agent may brea
 
 **Output Contract:**
 - Turborepo monorepo with `apps/web`, `apps/api`, `packages/types`
-- `apps/web`: Next.js 14 App Router, TypeScript, Tailwind CSS, shadcn/ui configured
+- `apps/web`: Next.js 14 Pages Router, TypeScript, Tailwind CSS, shadcn/ui configured
 - `apps/api`: Express, TypeScript, `ts-node-dev` for dev mode, `tsconfig.json` with path aliases
 - `packages/types`: Exports empty typed interfaces for `User`, `Listing`, `Order`, `Wallet`, `Transaction`
 - Root `package.json` with workspaces configured
@@ -141,10 +141,9 @@ apps/api/src/
 ├── services/authService.ts
 └── models/mongo/User.ts          # Mongoose model
 
-apps/web/app/(auth)/
-├── login/page.tsx
-├── register/page.tsx
-└── layout.tsx
+apps/web/pages/auth/
+├── login.tsx
+└── register.tsx
 
 apps/web/components/auth/
 ├── LoginForm.tsx
@@ -203,10 +202,10 @@ apps/api/src/
 ├── models/mongo/Listing.ts
 └── services/listingService.ts
 
-apps/web/app/listings/
-├── page.tsx                      # Browse + search page
-├── [id]/page.tsx                 # Listing detail (SSR for SEO)
-└── new/page.tsx                  # Create listing form
+apps/web/pages/listings/
+├── index.tsx                     # Browse + search page
+├── [id].tsx                      # Listing detail (SSR for SEO)
+└── new.tsx                       # Create listing form
 
 apps/web/components/listings/
 ├── ListingCard.tsx
@@ -267,9 +266,9 @@ apps/api/src/jobs/
 ├── autoConfirm.ts                # BullMQ job: confirm delivery after 72h
 └── emailQueue.ts                 # BullMQ job: send transactional emails
 
-apps/web/app/(dashboard)/orders/
-├── page.tsx                      # Order dashboard
-└── [id]/page.tsx                 # Order detail + delivery UI
+apps/web/pages/dashboard/orders/
+├── index.tsx                     # Order dashboard
+└── [id].tsx                      # Order detail + delivery UI
 
 apps/web/components/orders/
 ├── OrderCard.tsx
@@ -335,8 +334,8 @@ apps/api/src/
 apps/api/src/jobs/
 └── creditExpiry.ts               # BullMQ job: expire credits after 12mo inactivity
 
-apps/web/app/(dashboard)/wallet/
-└── page.tsx
+apps/web/pages/dashboard/
+└── wallet.tsx
 
 apps/web/components/wallet/
 ├── WalletBalance.tsx             # Shows both balances
@@ -409,8 +408,8 @@ apps/api/src/
 ├── controllers/swapController.ts
 └── services/aiService.ts         # OpenAI embeddings + similarity scoring
 
-apps/web/app/looking-for/
-└── page.tsx
+apps/web/pages/
+└── looking-for.tsx
 
 apps/web/components/swap/
 ├── SwapSuggester.tsx             # Shows top 3 match cards
@@ -556,8 +555,8 @@ apps/api/src/
 ├── controllers/searchController.ts
 └── services/searchService.ts
 
-apps/web/app/explore/
-└── page.tsx
+apps/web/pages/
+└── explore.tsx
 
 apps/web/components/discovery/
 ├── SearchBar.tsx
@@ -612,11 +611,11 @@ apps/api/src/
 ├── controllers/adminController.ts
 └── middleware/adminAuth.ts       # Role check: user.role === 'admin'
 
-apps/web/app/admin/
-├── page.tsx                      # Overview dashboard
-├── disputes/page.tsx
-├── users/page.tsx
-└── analytics/page.tsx
+apps/web/pages/admin/
+├── index.tsx                     # Overview dashboard
+├── disputes.tsx
+├── users.tsx
+└── analytics.tsx
 
 apps/web/components/admin/
 ├── DisputeQueue.tsx

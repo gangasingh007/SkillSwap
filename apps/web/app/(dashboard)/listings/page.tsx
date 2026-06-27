@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { Search, SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react"
 import { ListingGrid } from "@/components/listings/ListingGrid"
@@ -30,9 +31,15 @@ const defaultFilters: Filters = {
 }
 
 export default function BrowseListingsPage() {
+  const searchParams = useSearchParams()
+  const initialQuery = searchParams.get("q") || ""
+
   const [listings, setListings] = React.useState<any[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
-  const [filters, setFilters] = React.useState<Filters>(defaultFilters)
+  const [filters, setFilters] = React.useState<Filters>({
+    ...defaultFilters,
+    search: initialQuery,
+  })
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 12,
@@ -41,6 +48,21 @@ export default function BrowseListingsPage() {
   })
   const [mobileFiltersOpen, setMobileFiltersOpen] = React.useState(false)
   const searchTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+  const searchInputRef = React.useRef<HTMLInputElement>(null)
+
+  // Sync from URL when search params change (e.g. navigating from explore SearchBar)
+  React.useEffect(() => {
+    const q = searchParams.get("q") || ""
+    if (q !== filters.search) {
+      setFilters((prev) => ({ ...prev, search: q }))
+      setPagination((prev) => ({ ...prev, page: 1 }))
+      // Update the input value to match the URL query
+      if (searchInputRef.current) {
+        searchInputRef.current.value = q
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   React.useEffect(() => {
     const loadListings = async () => {
@@ -88,6 +110,9 @@ export default function BrowseListingsPage() {
   const handleResetFilters = () => {
     setFilters(defaultFilters)
     setPagination((prev) => ({ ...prev, page: 1 }))
+    if (searchInputRef.current) {
+      searchInputRef.current.value = ""
+    }
   }
 
   const handlePageChange = (page: number) => {
@@ -156,7 +181,9 @@ export default function BrowseListingsPage() {
           <div className="relative max-w-2xl">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
+              ref={searchInputRef}
               placeholder="Search for skills, e.g. 'React Development', 'Logo Design'..."
+              defaultValue={initialQuery}
               onChange={handleSearchInput}
               className="pl-12 h-12 rounded-xl border-input bg-card text-base shadow-sm focus-visible:ring-primary/20 focus-visible:border-primary/40"
             />

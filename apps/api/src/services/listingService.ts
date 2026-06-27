@@ -9,6 +9,7 @@ export interface ListingFilters {
   availability?: boolean;
   paymentType?: 'cash' | 'credits';
   visibility?: string;
+  userId?: string;
 }
 
 export interface PaginationOptions {
@@ -91,6 +92,10 @@ class ListingService {
     pagination: PaginationOptions
   ): Promise<{ listings: IListingModel[]; total: number; page: number; totalPages: number }> {
     const query: Record<string, unknown> = { isActive: true };
+
+    if (filters.userId) {
+      query.userId = new mongoose.Types.ObjectId(filters.userId);
+    }
 
     if (filters.category) {
       query.category = filters.category;

@@ -24,3 +24,8 @@ export async function submitVouch(userId: string, vouchData: any) {
   const { data } = await api.post(`/vouches`, { recipientId: userId, ...vouchData });
   return data;
 }
+
+export async function updateUserProfile(profileData: any) {
+  const { data } = await api.put(`/users/me`, profileData);
+  return data;
+}
