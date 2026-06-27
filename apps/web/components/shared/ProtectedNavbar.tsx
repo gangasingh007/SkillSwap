@@ -63,7 +63,7 @@ export function ProtectedNavbar() {
         <div className="flex items-center space-x-4">
           <div className="hidden sm:block">
             <Link href="/listings/new">
-              <Button size="sm" className="h-8 rounded-2xl text-background gap-1.5">
+              <Button size="sm" className="h-8 rounded-xl font-bold text-background gap-1.5">
                 <Plus className="h-3.5 w-3.5" />
                 <span>Post a Skill</span>
               </Button>

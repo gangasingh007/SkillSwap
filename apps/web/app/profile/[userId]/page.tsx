@@ -23,9 +23,8 @@ import { VerifiedSkillTag } from "@/components/profile/VerifiedSkillTag"
 import { ListingGrid } from "@/components/listings/ListingGrid"
 import { EditProfileModal } from "@/components/profile/EditProfileModal"
 
-export default function ProfilePage() {
-  const params = useParams()
-  const userId = params.userId as string
+export default function ProfilePage({ params }: { params: Promise<{ userId: string }> }) {
+  const { userId } = React.use(params)
   const { user: currentUser } = useAuthStore()
   
   const [profile, setProfile] = React.useState<any>(null)

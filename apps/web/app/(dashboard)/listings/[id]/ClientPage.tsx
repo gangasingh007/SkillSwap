@@ -47,24 +47,24 @@ export function ListingDetailClient({ listing }: ListingDetailClientProps) {
             >
               <div className="flex items-center gap-4 flex-wrap">
                 <CategoryBadge category={listing.category} />
-                <Badge variant="outline" className="bg-background/50 backdrop-blur-sm gap-1.5 py-1">
+                <Badge variant="outline" className="bg-background/50 backdrop-blur-sm gap-1.5 p-3 py-2">
                   <Eye className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="font-mono">{listing.analytics?.views || 0}</span> views
                 </Badge>
                 {listing.deliveryFormat === 'live_call' && (
-                  <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 gap-1.5 py-1">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 gap-1.5 py-2">
                     <PlayCircle className="h-3.5 w-3.5" />
                     Live Session
                   </Badge>
                 )}
                 {listing.deliveryFormat === 'async' && (
-                  <Badge variant="secondary" className="bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 gap-1.5 py-1">
+                  <Badge variant="secondary" className="bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 gap-1.5 py-2">
                     <Zap className="h-3.5 w-3.5" />
                     Async Delivery
                   </Badge>
                 )}
                 {listing.deliveryFormat === 'document' && (
-                  <Badge variant="secondary" className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20 gap-1.5 py-1">
+                  <Badge variant="secondary" className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20 gap-1.5 py-2">
                     <FileText className="h-3.5 w-3.5" />
                     Document
                   </Badge>

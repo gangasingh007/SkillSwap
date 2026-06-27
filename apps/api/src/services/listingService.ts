@@ -94,6 +94,14 @@ class ListingService {
     const query: Record<string, unknown> = { isActive: true };
 
     if (filters.userId) {
+      if (!mongoose.Types.ObjectId.isValid(filters.userId)) {
+        return {
+          listings: [],
+          total: 0,
+          page: pagination.page,
+          totalPages: 0,
+        };
+      }
       query.userId = new mongoose.Types.ObjectId(filters.userId);
     }
 

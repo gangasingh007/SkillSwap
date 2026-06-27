@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
     res.status(201).json({
       accessToken,
       user: {
-        id: user._id,
+        _id: user._id,
         email: user.email,
         name: user.name,
       },
@@ -82,7 +82,7 @@ export const login = async (req: Request, res: Response) => {
     res.json({
       accessToken,
       user: {
-        id: user._id,
+        _id: user._id,
         email: user.email,
         name: user.name,
       },

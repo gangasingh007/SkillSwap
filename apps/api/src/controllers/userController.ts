@@ -39,6 +39,9 @@ export const updateMe = async (req: AuthRequest, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   try {
+    if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(404).json({ message: 'User not found' });
+    }
     const user = await User.findById(req.params.id).select('-passwordHash -refreshToken -email');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
